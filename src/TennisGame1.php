@@ -36,25 +36,28 @@ class TennisGame1 implements TennisGame
         $score = "";
         if ($this->scorePlayer1 == $this->scorePlayer2) {
             if ($this->scorePlayer1 == 0) {
-                $score = self::LOVE . "" . self::SEPARADOR . self::ALL;
-            } elseif ($this->scorePlayer1 == 1) {
-                $score = self::FIFTEEN . self::SEPARADOR . self::ALL;
-            } elseif ($this->scorePlayer1 == 2) {
-                $score = self::THIRTY . self::SEPARADOR . self::ALL;
-            } else {
-                $score = self::DEUCE;
+                return self::LOVE . "" . self::SEPARADOR . self::ALL;
             }
+            if ($this->scorePlayer1 == 1) {
+                return self::FIFTEEN . self::SEPARADOR . self::ALL;
+            }
+            if ($this->scorePlayer1 == 2) {
+                return self::THIRTY . self::SEPARADOR . self::ALL;
+            }
+            return self::DEUCE;
         } elseif ($this->scorePlayer1 >= 4 || $this->scorePlayer2 >= 4) {
             $minusResult = $this->scorePlayer1 - $this->scorePlayer2;
             if ($minusResult == 1) {
-                $score = "Advantage player1";
-            } elseif ($minusResult == -1) {
-                $score = "Advantage player2";
-            } elseif ($minusResult >= 2) {
-                $score = "Win for player1";
-            } else {
-                $score = "Win for player2";
+                return "Advantage player1";
             }
+            if ($minusResult == -1) {
+                return "Advantage player2";
+            }
+            if ($minusResult >= 2) {
+                return "Win for player1";
+            }
+            return "Win for player2";
+
         } else {
             for ($currentPlayer = 1; $currentPlayer <= 2; $currentPlayer++) {
                 if ($currentPlayer == 1) {
@@ -65,11 +68,14 @@ class TennisGame1 implements TennisGame
                 }
                 if ($currentPlayerScore == 0) {
                     $score .= self::LOVE;
-                } elseif ($currentPlayerScore == 1) {
+                }
+                if ($currentPlayerScore == 1) {
                     $score .= self::FIFTEEN;
-                } elseif ($currentPlayerScore == 2) {
+                }
+                if ($currentPlayerScore == 2) {
                     $score .= self::THIRTY;
-                } elseif ($currentPlayerScore == 3) {
+                }
+                if ($currentPlayerScore == 3) {
                     $score .= self::FORTY;
                 }
             }
