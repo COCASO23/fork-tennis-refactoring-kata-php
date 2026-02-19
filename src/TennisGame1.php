@@ -33,7 +33,7 @@ class TennisGame1 implements TennisGame
 
     public function getScore(): string
     {
-        $score = "";
+
         if ($this->scorePlayer1 == $this->scorePlayer2) {
             if ($this->scorePlayer1 == 0) {
                 return self::LOVE . "" . self::SEPARADOR . self::ALL;
@@ -46,19 +46,21 @@ class TennisGame1 implements TennisGame
             }
             return self::DEUCE;
         } elseif ($this->scorePlayer1 >= 4 || $this->scorePlayer2 >= 4) {
-            $minusResult = $this->scorePlayer1 - $this->scorePlayer2;
-            if ($minusResult == 1) {
+            $scoreDifferencePlayer1Player2 = $this->scorePlayer1 - $this->scorePlayer2;
+            if ($scoreDifferencePlayer1Player2 == 1) {
                 return "Advantage player1";
             }
-            if ($minusResult == -1) {
+            if ($scoreDifferencePlayer1Player2 == -1) {
                 return "Advantage player2";
             }
-            if ($minusResult >= 2) {
+            if ($scoreDifferencePlayer1Player2 >= 2) {
                 return "Win for player1";
             }
             return "Win for player2";
 
-        } else {
+        }
+        else {
+            $score = "";
             for ($currentPlayer = 1; $currentPlayer <= 2; $currentPlayer++) {
                 if ($currentPlayer == 1) {
                     $currentPlayerScore = $this->scorePlayer1;
@@ -79,8 +81,8 @@ class TennisGame1 implements TennisGame
                     $score .= self::FORTY;
                 }
             }
+            return $score;
         }
-        return $score;
     }
 }
 
