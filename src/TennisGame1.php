@@ -38,16 +38,7 @@ class TennisGame1 implements TennisGame
             return $this->getDrawResult();
         } elseif ($this->somePlayerHasAdvantage()) {
             $scoreDifferencePlayer1Player2 = $this->scorePlayer1 - $this->scorePlayer2;
-            if ($scoreDifferencePlayer1Player2 == 1) {
-                return "Advantage player1";
-            }
-            if ($scoreDifferencePlayer1Player2 == -1) {
-                return "Advantage player2";
-            }
-            if ($scoreDifferencePlayer1Player2 >= 2) {
-                return "Win for player1";
-            }
-            return "Win for player2";
+            return $this->getAdvantageOrWin($scoreDifferencePlayer1Player2);
 
         }
         else {
@@ -59,7 +50,7 @@ class TennisGame1 implements TennisGame
                     $score .= self::SEPARADOR;
                     $currentPlayerScore = $this->scorePlayer2;
                 }
-                $score = $this->getActualPlayerScore($currentPlayerScore, $score);
+                $score = $this->getCurrentPlayerScore($currentPlayerScore, $score);
             }
             return $score;
         }
@@ -103,7 +94,7 @@ class TennisGame1 implements TennisGame
      * @param string $score
      * @return string
      */
-    public function getActualPlayerScore(int $currentPlayerScore, string $score): string
+    public function getCurrentPlayerScore(int $currentPlayerScore, string $score): string
     {
         if ($currentPlayerScore == 0) {
             $score .= self::LOVE;
@@ -118,6 +109,60 @@ class TennisGame1 implements TennisGame
             $score .= self::FORTY;
         }
         return $score;
+    }
+
+    /**
+     * @param int $scoreDifferencePlayer1Player2
+     * @return string
+     */
+    public function getAdvantageOrWin(int $scoreDifferencePlayer1Player2): string
+    {
+        if($this->aPlayerHasAdvantage($scoreDifferencePlayer1Player2)){
+            if ($this->player1HasAdvantage($scoreDifferencePlayer1Player2)) {
+                return "Advantage player1";
+            }
+            return "Advantage player2";
+        }
+        return $this->getWinner($scoreDifferencePlayer1Player2);
+    }
+
+    /**
+     * @param int $scoreDifferencePlayer1Player2
+     * @return bool
+     */
+    public function aPlayerHasAdvantage(int $scoreDifferencePlayer1Player2): bool
+    {
+        return $scoreDifferencePlayer1Player2 == 1 || $scoreDifferencePlayer1Player2 == -1;
+    }
+
+    /**
+     * @param int $scoreDifferencePlayer1Player2
+     * @return bool
+     */
+    public function player1HasAdvantage(int $scoreDifferencePlayer1Player2): bool
+    {
+        return $scoreDifferencePlayer1Player2 == 1;
+    }
+
+    /**
+     * @param int $scoreDifferencePlayer1Player2
+     * @return bool
+     */
+    public function player2HasAdvantage(int $scoreDifferencePlayer1Player2): bool
+    {
+        return $scoreDifferencePlayer1Player2 == -1;
+    }
+
+    /**
+     * @param int $scoreDifferencePlayer1Player2
+     * @return string
+     */
+    public function getWinner(int $scoreDifferencePlayer1Player2): string
+    {
+        if ($scoreDifferencePlayer1Player2 >= 2) {
+            return "Win for player1";
+        }
+        return "Win for player2";
     }
 }
 
