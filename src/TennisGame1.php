@@ -4,6 +4,13 @@ namespace Feature;
 
 class TennisGame1 implements TennisGame
 {
+    private const LOVE = "Love";
+    private const FIFTEEN = "Fifteen";
+    private const THIRTY = "Thirty";
+    private const DEUCE = "Deuce";
+    private const FORTY = "Forty";
+    private const SEPARADOR = "-";
+    private const ALL = "All";
     private int $scorePlayer1 = 0;
     private int $scorePlayer2 = 0;
     private string $player1Name = '';
@@ -30,16 +37,16 @@ class TennisGame1 implements TennisGame
         if ($this->scorePlayer1 == $this->scorePlayer2) {
             switch ($this->scorePlayer1) {
                 case 0:
-                    $score = "Love-All";
+                    $score = self::LOVE . "" . self::SEPARADOR . self::ALL;
                     break;
                 case 1:
-                    $score = "Fifteen-All";
+                    $score = self::FIFTEEN . self::SEPARADOR . self::ALL;
                     break;
                 case 2:
-                    $score = "Thirty-All";
+                    $score = self::THIRTY . self::SEPARADOR . self::ALL;
                     break;
                 default:
-                    $score = "Deuce";
+                    $score = self::DEUCE;
                     break;
             }
         } elseif ($this->scorePlayer1 >= 4 || $this->scorePlayer2 >= 4) {
@@ -58,21 +65,21 @@ class TennisGame1 implements TennisGame
                 if ($i == 1) {
                     $tempScore = $this->scorePlayer1;
                 } else {
-                    $score .= "-";
+                    $score .= self::SEPARADOR;
                     $tempScore = $this->scorePlayer2;
                 }
                 switch ($tempScore) {
                     case 0:
-                        $score .= "Love";
+                        $score .= self::LOVE;
                         break;
                     case 1:
-                        $score .= "Fifteen";
+                        $score .= self::FIFTEEN;
                         break;
                     case 2:
-                        $score .= "Thirty";
+                        $score .= self::THIRTY;
                         break;
                     case 3:
-                        $score .= "Forty";
+                        $score .= self::FORTY;
                         break;
                 }
             }
