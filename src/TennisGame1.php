@@ -34,18 +34,9 @@ class TennisGame1 implements TennisGame
     public function getScore(): string
     {
 
-        if ($this->scorePlayer1 == $this->scorePlayer2) {
-            if ($this->scorePlayer1 == 0) {
-                return self::LOVE . "" . self::SEPARADOR . self::ALL;
-            }
-            if ($this->scorePlayer1 == 1) {
-                return self::FIFTEEN . self::SEPARADOR . self::ALL;
-            }
-            if ($this->scorePlayer1 == 2) {
-                return self::THIRTY . self::SEPARADOR . self::ALL;
-            }
-            return self::DEUCE;
-        } elseif ($this->scorePlayer1 >= 4 || $this->scorePlayer2 >= 4) {
+        if ($this->isDraw()) {
+            return $this->getDrawResult();
+        } elseif ($this->somePlayerHasAdvantage()) {
             $scoreDifferencePlayer1Player2 = $this->scorePlayer1 - $this->scorePlayer2;
             if ($scoreDifferencePlayer1Player2 == 1) {
                 return "Advantage player1";
@@ -68,21 +59,65 @@ class TennisGame1 implements TennisGame
                     $score .= self::SEPARADOR;
                     $currentPlayerScore = $this->scorePlayer2;
                 }
-                if ($currentPlayerScore == 0) {
-                    $score .= self::LOVE;
-                }
-                if ($currentPlayerScore == 1) {
-                    $score .= self::FIFTEEN;
-                }
-                if ($currentPlayerScore == 2) {
-                    $score .= self::THIRTY;
-                }
-                if ($currentPlayerScore == 3) {
-                    $score .= self::FORTY;
-                }
+                $score = $this->getActualPlayerScore($currentPlayerScore, $score);
             }
             return $score;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDraw(): bool
+    {
+        return $this->scorePlayer1 == $this->scorePlayer2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDrawResult(): string
+    {
+        if ($this->scorePlayer1 == 0) {
+            return self::LOVE . "" . self::SEPARADOR . self::ALL;
+        }
+        if ($this->scorePlayer1 == 1) {
+            return self::FIFTEEN . self::SEPARADOR . self::ALL;
+        }
+        if ($this->scorePlayer1 == 2) {
+            return self::THIRTY . self::SEPARADOR . self::ALL;
+        }
+        return self::DEUCE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function somePlayerHasAdvantage(): bool
+    {
+        return $this->scorePlayer1 >= 4 || $this->scorePlayer2 >= 4;
+    }
+
+    /**
+     * @param int $currentPlayerScore
+     * @param string $score
+     * @return string
+     */
+    public function getActualPlayerScore(int $currentPlayerScore, string $score): string
+    {
+        if ($currentPlayerScore == 0) {
+            $score .= self::LOVE;
+        }
+        if ($currentPlayerScore == 1) {
+            $score .= self::FIFTEEN;
+        }
+        if ($currentPlayerScore == 2) {
+            $score .= self::THIRTY;
+        }
+        if ($currentPlayerScore == 3) {
+            $score .= self::FORTY;
+        }
+        return $score;
     }
 }
 
