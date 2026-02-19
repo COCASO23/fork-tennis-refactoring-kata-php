@@ -61,14 +61,14 @@ class TennisGame1 implements TennisGame
                 $score = "Win for player2";
             }
         } else {
-            for ($i = 1; $i < 3; $i++) {
-                if ($i == 1) {
-                    $tempScore = $this->scorePlayer1;
+            for ($currentPlayer = 1; $currentPlayer <= 2; $currentPlayer++) {
+                if ($currentPlayer == 1) {
+                    $currentPlayerScore = $this->scorePlayer1;
                 } else {
                     $score .= self::SEPARADOR;
-                    $tempScore = $this->scorePlayer2;
+                    $currentPlayerScore = $this->scorePlayer2;
                 }
-                switch ($tempScore) {
+                switch ($currentPlayerScore) {
                     case 0:
                         $score .= self::LOVE;
                         break;
