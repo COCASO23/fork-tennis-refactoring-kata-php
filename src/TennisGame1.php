@@ -13,8 +13,8 @@ class TennisGame1 implements TennisGame
     private const ALL = "All";
     private int $scorePlayer1 = 0;
     private int $scorePlayer2 = 0;
-    private string $player1Name = '';
-    private string $player2Name = '';
+    private string $player1Name;
+    private string $player2Name;
 
     public function __construct($player1Name, $player2Name)
     {
@@ -39,7 +39,6 @@ class TennisGame1 implements TennisGame
         } elseif ($this->somePlayerHasAdvantage()) {
             $scoreDifferencePlayer1Player2 = $this->scorePlayer1 - $this->scorePlayer2;
             return $this->getAdvantageOrWin($scoreDifferencePlayer1Player2);
-
         }
         else {
             $score = "";
@@ -70,7 +69,7 @@ class TennisGame1 implements TennisGame
     public function getDrawResult(): string
     {
         if ($this->scorePlayer1 == 0) {
-            return self::LOVE . "" . self::SEPARADOR . self::ALL;
+            return self::LOVE . self::SEPARADOR . self::ALL;
         }
         if ($this->scorePlayer1 == 1) {
             return self::FIFTEEN . self::SEPARADOR . self::ALL;
@@ -142,15 +141,6 @@ class TennisGame1 implements TennisGame
     public function player1HasAdvantage(int $scoreDifferencePlayer1Player2): bool
     {
         return $scoreDifferencePlayer1Player2 == 1;
-    }
-
-    /**
-     * @param int $scoreDifferencePlayer1Player2
-     * @return bool
-     */
-    public function player2HasAdvantage(int $scoreDifferencePlayer1Player2): bool
-    {
-        return $scoreDifferencePlayer1Player2 == -1;
     }
 
     /**
