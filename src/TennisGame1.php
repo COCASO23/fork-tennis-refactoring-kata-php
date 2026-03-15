@@ -11,12 +11,10 @@ class TennisGame1 implements TennisGame
     private const FORTY = "Forty";
     private const SEPARADOR = "-";
     private const ALL = "All";
-    private const PLAYER1NAME = 'player1';
-    private const PLAYER2NAME = 'player2';
     private int $scorePlayer1 = 0;
     private int $scorePlayer2 = 0;
-    private string $player1Name;
-    private string $player2Name;
+    private string $player1Name = 'player1';
+    private string $player2Name = 'player2';
 
     public function __construct($player1Name, $player2Name)
     {
@@ -26,10 +24,10 @@ class TennisGame1 implements TennisGame
 
     public function wonPoint($playerName): void
     {
-        if (self::PLAYER1NAME == $playerName) {
+        if ($this->player1Name == $playerName) {
             $this->scorePlayer1++;
         }
-        if (self::PLAYER2NAME == $playerName) {
+        if ($this->player2Name == $playerName) {
             $this->scorePlayer2++;
         }
     }
@@ -121,9 +119,9 @@ class TennisGame1 implements TennisGame
     {
         if($this->aPlayerHasAdvantage($scoreDifferencePlayer1Player2)){
             if ($this->player1HasAdvantage($scoreDifferencePlayer1Player2)) {
-                return "Advantage " . self::PLAYER1NAME;
+                return "Advantage " . $this->player1Name;
             }
-            return "Advantage " . self::PLAYER2NAME;
+            return "Advantage " . $this->player2Name;
         }
         return $this->getWinner($scoreDifferencePlayer1Player2);
     }
@@ -153,9 +151,9 @@ class TennisGame1 implements TennisGame
     public function getWinner(int $scoreDifferencePlayer1Player2): string
     {
         if ($scoreDifferencePlayer1Player2 >= 2) {
-            return "Win for " . self::PLAYER1NAME;
+            return "Win for " . $this->player1Name;
         }
-        return "Win for " . self::PLAYER2NAME;
+        return "Win for " . $this->player2Name;
     }
 }
 
