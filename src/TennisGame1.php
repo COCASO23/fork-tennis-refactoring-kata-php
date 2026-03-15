@@ -11,6 +11,8 @@ class TennisGame1 implements TennisGame
     private const FORTY = "Forty";
     private const SEPARADOR = "-";
     private const ALL = "All";
+    private const PLAYER1NAME = 'player1';
+    private const PLAYER2NAME = 'player2';
     private int $scorePlayer1 = 0;
     private int $scorePlayer2 = 0;
     private string $player1Name;
@@ -24,10 +26,10 @@ class TennisGame1 implements TennisGame
 
     public function wonPoint($playerName): void
     {
-        if ('player1' == $playerName) {
+        if (self::PLAYER1NAME == $playerName) {
             $this->scorePlayer1++;
         }
-        if ('player2' == $playerName) {
+        if (self::PLAYER2NAME == $playerName) {
             $this->scorePlayer2++;
         }
     }
@@ -51,7 +53,7 @@ class TennisGame1 implements TennisGame
                 $score .= self::SEPARADOR;
                 $currentPlayerScore = $this->scorePlayer2;
             }
-            $score = $this->getCurrentPlayerScore($currentPlayerScore, $score);
+            $score = $this->addCurrentPlayerScoreToScore($currentPlayerScore, $score);
         }
         return $score;
     }
@@ -94,7 +96,7 @@ class TennisGame1 implements TennisGame
      * @param string $score
      * @return string
      */
-    public function getCurrentPlayerScore(int $currentPlayerScore, string $score): string
+    public function addCurrentPlayerScoreToScore(int $currentPlayerScore, string $score): string
     {
         if ($currentPlayerScore == 0) {
             $score .= self::LOVE;
@@ -119,9 +121,9 @@ class TennisGame1 implements TennisGame
     {
         if($this->aPlayerHasAdvantage($scoreDifferencePlayer1Player2)){
             if ($this->player1HasAdvantage($scoreDifferencePlayer1Player2)) {
-                return "Advantage player1";
+                return "Advantage " . self::PLAYER1NAME;
             }
-            return "Advantage player2";
+            return "Advantage " . self::PLAYER2NAME;
         }
         return $this->getWinner($scoreDifferencePlayer1Player2);
     }
@@ -151,9 +153,9 @@ class TennisGame1 implements TennisGame
     public function getWinner(int $scoreDifferencePlayer1Player2): string
     {
         if ($scoreDifferencePlayer1Player2 >= 2) {
-            return "Win for player1";
+            return "Win for " . self::PLAYER1NAME;
         }
-        return "Win for player2";
+        return "Win for " . self::PLAYER2NAME;
     }
 }
 
