@@ -46,7 +46,8 @@ class TennisGame1 implements TennisGame
         for ($currentPlayer = 1; $currentPlayer <= 2; $currentPlayer++) {
             if ($currentPlayer == 1) {
                 $currentPlayerScore = $this->scorePlayer1;
-            } else {
+            }
+            if ($currentPlayer == 2) {
                 $score .= self::SEPARADOR;
                 $currentPlayerScore = $this->scorePlayer2;
             }
