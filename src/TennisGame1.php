@@ -36,23 +36,22 @@ class TennisGame1 implements TennisGame
 
         if ($this->isDraw()) {
             return $this->getDrawResult();
-        } elseif ($this->somePlayerHasAdvantage()) {
+        }
+        if ($this->somePlayerHasAdvantage()) {
             $scoreDifferencePlayer1Player2 = $this->scorePlayer1 - $this->scorePlayer2;
             return $this->getAdvantageOrWin($scoreDifferencePlayer1Player2);
         }
-        else {
-            $score = "";
-            for ($currentPlayer = 1; $currentPlayer <= 2; $currentPlayer++) {
-                if ($currentPlayer == 1) {
-                    $currentPlayerScore = $this->scorePlayer1;
-                } else {
-                    $score .= self::SEPARADOR;
-                    $currentPlayerScore = $this->scorePlayer2;
-                }
-                $score = $this->getCurrentPlayerScore($currentPlayerScore, $score);
+        $score = "";
+        for ($currentPlayer = 1; $currentPlayer <= 2; $currentPlayer++) {
+            if ($currentPlayer == 1) {
+                $currentPlayerScore = $this->scorePlayer1;
+            } else {
+                $score .= self::SEPARADOR;
+                $currentPlayerScore = $this->scorePlayer2;
             }
-            return $score;
+            $score = $this->getCurrentPlayerScore($currentPlayerScore, $score);
         }
+        return $score;
     }
 
     /**
