@@ -26,7 +26,8 @@ class TennisGame1 implements TennisGame
     {
         if ('player1' == $playerName) {
             $this->scorePlayer1++;
-        } else {
+        }
+        if ('player2' == $playerName) {
             $this->scorePlayer2++;
         }
     }
